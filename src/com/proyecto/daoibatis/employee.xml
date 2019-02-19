@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!--
+		DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+		"http://www.ibatis.com/dtd/sql-map-2.dtd"
+	-->
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="employee">
+
+   <typeAlias alias="Employee" type="com.proyecto.model.Employee" />
+   <resultMap id="resultMapEmployee" class="Employee">
+	  <result property="id" column="id" />
+      <result property="name" column="name" />
+      <result property="age" column="age" />
+      <result property="salary" column="salary" />
+      <result property="address" column="address" />
+    </resultMap>
+
+	<select id="selectAll" resultMap ="resultMapEmployee">
+		SELECT   
+			id,
+		    name,
+			age,
+			salary,
+			address
+		from Employee
+	</select>
+	
+	<select id="selectbyId" parameterClass="java.util.HashMap" resultMap ="resultMapEmployee">
+		SELECT   
+			id,
+		    name,
+			age,
+			salary,
+			address
+		from Employee
+		where id = #id#
+	</select>
+	
+	<insert id="insert" parameterClass="java.util.HashMap">
+		insert into employee 
+		(id,
+		 name,
+		 age,
+		 salary,
+		 address)
+		values 
+		(#id#,
+		 #name#,
+		 #age#,
+		 #salary#,
+		 #address#)
+	</insert>
+	
+   <update id="update" parameterClass="java.util.HashMap">
+       update employee
+	   set name    = #name#,
+	       age     = #age#,
+	       salary  = #salary#,
+	       address = #address# 
+		where id = #id#
+   </update>
+   
+   <delete id="delete" parameterClass="java.util.HashMap" >
+   		delete from employee where id = #id#;
+   </delete>
+   
+
+</sqlMap>
